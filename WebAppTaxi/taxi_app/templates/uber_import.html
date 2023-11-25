@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Uber Import{% endblock %}
+
+{% block content %}
+<h1>Загрузка UBER CSV файла!</h1>
+<!-- Содержимое главной страницы -->
+<form action="{% url 'import_uber_csv' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" id="uber_csv_file" name="uber_csv_file" accept=".csv">
+  <input type="number" name="week_number" required placeholder="Номер недели">
+  <input type="date" name="week_start" required placeholder="Начало недели">
+  <input type="date" name="week_end" required placeholder="Конец недели">
+  <button type="submit">Загрузить</button>
+</form>
+{% endblock %}

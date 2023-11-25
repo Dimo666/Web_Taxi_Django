@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: powderblue;
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: black;
+  /* height: 3rem; */
+  flex-basis: 3rem;
+  flex-grow: 0;
+}
+
+main {
+  background: lightblue;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+footer {
+  background: lightgreen;
+  flex-basis: 2rem;
+  flex-grow: 0;
+}
+
+aside:first-child {
+  background: grey;
+  flex-basis: 12rem;
+}
+
+aside:last-child {
+  background: violet;
+  flex-basis: 16rem;
+}
+
+.content {
+  background: white;
+  flex-grow: 1;
+}

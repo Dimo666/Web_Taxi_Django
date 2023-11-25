@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<h1>Добро пожаловать на мою страницу!</h1>
+<!-- Содержимое главной страницы -->
+<form action="{% url 'import_bolt_csv' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" id="bolt_csv" name="bolt_csv" accept=".csv">
+  <input type="number" name="week_number" required placeholder="Номер недели">
+  <input type="date" name="week_start" required placeholder="Начало недели">
+  <input type="date" name="week_end" required placeholder="Конец недели">
+  <button type="submit">Загрузить</button>
+</form>
+{% endblock %}
