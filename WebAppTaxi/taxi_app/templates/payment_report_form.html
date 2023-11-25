@@ -1,0 +1,17 @@
+<!-- payment_report_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Select Week for Payment Report{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Select Week for Payment Report</h2>
+        <form method="get" action="{% url 'payment_report_html' %}">
+            <div class="mb-3">
+                <label for="weekNumber" class="form-label">Week Number:</label>
+                <input type="number" class="form-control" id="weekNumber" name="week_number" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+        </form>
+    </div>
+{% endblock %}

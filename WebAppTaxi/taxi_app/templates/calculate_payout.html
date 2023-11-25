@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Calculate Payout{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Calculate Total Payout</h2>
+        <form method="post" action="{% url 'calculate_payout' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="last_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="weekNumber" class="form-label">Week Number</label>
+                <input type="number" class="form-control" id="weekNumber" name="week_number" required>
+            </div>
+            <div class="mb-3">
+                <label for="weekStart" class="form-label">Week Start (YYYY-MM-DD)</label>
+                <input type="date" class="form-control" id="weekStart" name="week_start" required>
+            </div>
+            <div class="mb-3">
+                <label for="weekEnd" class="form-label">Week End (YYYY-MM-DD)</label>
+                <input type="date" class="form-control" id="weekEnd" name="week_end" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+    </div>
+{% endblock %}

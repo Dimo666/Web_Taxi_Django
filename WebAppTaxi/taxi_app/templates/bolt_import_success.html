@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Импорт оплаты Bolt успешен{% endblock %}
+
+{% block content %}
+    <h1>Импорт данных об оплате Bolt завершен</h1>
+
+    {% if bolt_payments %}
+        <table>
+            <thead>
+            <tr>
+                <th>Имя водителя</th>
+                <th>Фамилия водителя</th>
+                <th>Неделя</th>
+                <th>Начало недели</th>
+                <th>Конец недели</th>
+                <th>Брутто</th>
+                <th>Плата за отмену</th>
+                <th>Доплата</th>
+                <th>Комиссия Болт</th>
+                <th>Наличные</th>
+                <th>Бонусы</th>
+                <th>Компенсация</th>
+                <th>Возврат Заказчику</th>
+                <th>Чаявые</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for payment in bolt_payments %}
+                <tr>
+                    <td>{{ payment.driver.first_name }}</td>
+                    <td>{{ payment.driver.last_name }}</td>
+                    <td>{{ payment.week_number }}</td>
+                    <td>{{ payment.week_start }}</td>
+                    <td>{{ payment.week_end }}</td>
+                    <td>{{ payment.gross_earnings }}</td>
+                    <td>{{ payment.cancellation_fee }}</td>
+                    <td>{{ payment.additional_charges }}</td>
+                    <td>{{ payment.bolt_commission }}</td>
+                    <td>{{ payment.cash_collected }}</td>
+                    <td>{{ payment.bonus }}</td>
+                    <td>{{ payment.compensation }}</td>
+                    <td>{{ payment.refunds }}</td>
+                    <td>{{ payment.tips }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет данных для отображения.</p>
+    {% endif %}
+
+    <a href="{% url 'import_bolt_csv' %}">Вернуться к форме импорта</a>
+
+{% endblock %}

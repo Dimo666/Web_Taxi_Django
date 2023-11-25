@@ -16,9 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import payment_report_view
+
+from taxi_app import views
+from taxi_app.views import calculate_total_payout_for_all_drivers_view, payment_report_csv_view, \
+    payment_report_html_view, payment_report_form_view
+
+# from taxi_app.views import payment_report_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('export_payments/', payment_report_view, name='export_payments'),
+    path('', views.index, name='index'),
+    path('uber_import/', views.import_uber_csv, name='import_uber_csv'),
+    path('bolt_import/', views.import_bolt_csv, name='import_bolt_csv'),
+    path('calculate_payout/', views.calculate_payout_view, name='calculate_payout'),
+    path('calculate_payouts_all/', calculate_total_payout_for_all_drivers_view,
+         name='calculate_total_payout_for_all_drivers'),
+    path('payment_report_form/', payment_report_form_view, name='payment_report_form'),
+    path('payment_report/', payment_report_html_view, name='payment_report_html'),
+    path('payment_report/csv/', payment_report_csv_view, name='payment_report_csv'),
 ]

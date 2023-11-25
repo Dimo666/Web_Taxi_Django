@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taxi_app',
+    'main_app',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'main_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"], # указываем путь к папке templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,14 +75,20 @@ WSGI_APPLICATION = 'main_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'HOST': 'db.dfssjrofwyzdmozfqnjl.supabase.co',
+    'HOST': 'db.hyowjbnlefeurozqxqvd.supabase.co',
     'NAME': 'postgres',
     'USER': 'postgres',
     'PORT': '5432',
-    'PASSWORD': '4Aojv42shMsvRdpC',
+    'PASSWORD': 'jfnQTdLUR1CSvBjD',
 }
 }
 
@@ -120,9 +127,58 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # Укажите путь к вашей папке static.
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,  # версия конфигурации
+    'disable_existing_loggers': False,  # не отключать существующие логгеры
+    'formatters': {  # форматирование сообщений
+        'verbose': {  # подробный формат
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {  # простой формат
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {  # обработчики, которые определяют, куда отправлять логи
+        'bolt_file': {  # обработчик для Bolt
+            'level': 'DEBUG',  # уровень логирования
+            'class': 'logging.FileHandler',  # класс обработчика
+            'filename': BASE_DIR / 'bolt_import.log',  # путь к файлу лога
+            'formatter': 'verbose',  # использовать подробный формат
+        },
+        'uber_file': {  # обработчик для Uber
+            'level': 'DEBUG',  # уровень логирования
+            'class': 'logging.FileHandler',  # класс обработчика
+            'filename': BASE_DIR / 'uber_import.log',  # путь к файлу лога
+            'formatter': 'verbose',  # использовать подробный формат
+
+        },
+    },
+    'loggers': {  # логгеры, которые определяют, какие сообщения логгировать
+        'bolt_logger': {  # логгер для Bolt
+            'handlers': ['bolt_file'],  # использовать обработчик bolt_file
+            'level': 'DEBUG',  # уровень логирования
+            'propagate': False,  # не передавать сообщения в родительские логгеры
+        },
+        'uber_logger': {  # логгер для Uber
+            'handlers': ['uber_file'],  # использовать обработчик uber_file
+            'level': 'DEBUG',  # уровень логирования
+            'propagate': False,  # не передавать сообщения в родительские логгеры
+        },
+    },
+}
+
+DATE_FORMAT = 'd/m/Y' # формат даты
+
+USE_L10N = False # использовать локальные настройки

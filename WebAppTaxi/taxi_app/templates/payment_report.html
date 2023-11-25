@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Report{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Payment Report</h2>
+
+        <!-- Добавляем кнопку для скачивания PDF -->
+        <!-- Кнопка для скачивания CSV будет видна только если есть отчет -->
+        {% if week_number %}
+            <a href="{% url 'payment_report_csv' %}?week_number={{ week_number }}" class="btn btn-secondary mb-3">
+                Download CSV
+            </a>
+        {% endif %}
+        <!-- Добавляем кнопку для скачивания CSV -->
+        {#        <form method="get" action="{% url 'payment_report_csv' %}">#}
+        {#            <input type="hidden" name="week_number" value="{{ week_number }}">#}
+        {#            <button type="submit" class="btn btn-secondary mb-3">Download CSV</button>#}
+        {#        </form>#}
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Driver Name</th>
+                <th>Phone Number</th>
+                <th>Week Number</th>
+                <th>Week Start</th>
+                <th>Week End</th>
+                <th>Bank Account</th>
+                <th>Total Payout</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for report in payment_report %}
+                <tr>
+                    <td>{{ report.driver_name }}</td>
+                    <td>{{ report.phone_number }}</td>
+                    <td>{{ report.week_number }}</td>
+                    <td>{{ report.week_start }}</td>
+                    <td>{{ report.week_end }}</td>
+                    <td>{{ report.bank_account }}</td>
+                    <td>{{ report.total_payout }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

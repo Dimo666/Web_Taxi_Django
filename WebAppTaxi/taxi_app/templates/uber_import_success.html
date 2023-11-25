@@ -3,11 +3,11 @@
 {% block title %}Импорт оплаты Uber успешен{% endblock %}
 
 {% block content %}
-<h1>Импорт данных об оплате Uber завершен</h1>
+    <h1>Импорт данных об оплате Uber завершен</h1>
 
-{% if uber_payments %}
-    <table>
-        <thead>
+    {% if uber_payments %}
+        <table>
+            <thead>
             <tr>
                 <th>Имя водителя</th>
                 <th>Фамилия водителя</th>
@@ -15,10 +15,10 @@
                 <th>Начало недели</th>
                 <th>Конец недели</th>
                 <th>Общий заработок</th>
-                <th>Собранная наличность</th>
+                <th>Наличные</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for payment in uber_payments %}
                 <tr>
                     <td>{{ payment.driver.first_name }}</td>
@@ -30,12 +30,12 @@
                     <td>{{ payment.cash_collected }}</td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Нет данных для отображения.</p>
-{% endif %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет данных для отображения.</p>
+    {% endif %}
 
-<a href="{% url 'import_uber_csv' %}">Вернуться к форме импорта</a>
+    <a href="{% url 'import_uber_csv' %}">Вернуться к форме импорта</a>
 
 {% endblock %}
